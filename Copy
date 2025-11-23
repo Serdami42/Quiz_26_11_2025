@@ -1,38 +1,3 @@
-<<<<<<< HEAD
-const express = require("express");
-const app = express();
-const http = require("http").createServer(app);
-const io = require("socket.io")(http);
-
-const PORT = 3000;
-http.listen(PORT, () => {
-  console.log(`Server läuft auf http://localhost:${PORT}`);
-});
-
-// Statische Dateien aus /public bereitstellen
-app.use(express.static("public"));
-
-// Spieler-Daten
-let players = {};
-
-io.on("connection", (socket) => {
-  console.log(`Spieler verbunden: ${socket.id}`);
-
-  socket.on("set-nickname", (nickname) => {
-    players[socket.id] = { nickname, score: 0 };
-    io.emit("players-update", Object.values(players));
-  });
-
-  socket.on("disconnect", () => {
-    delete players[socket.id];
-    io.emit("players-update", Object.values(players));
-  });
-});
-
-http.listen(PORT, () => {
-  console.log(`Server läuft auf http://localhost:${PORT}`);
-});
-=======
 const questions = [
   {
     question: "Wie viele Kontinente gibt es?",
@@ -104,4 +69,3 @@ nextBtn.onclick = () => {
 function showResult() {
   quizContainer.innerHTML = `<h2>Fertig! Punkte: ${score}/${questions.length}</h2>`;
 }
->>>>>>> daba500c7a7811401e760d6a1a3e99066c74a69f
